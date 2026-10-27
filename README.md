@@ -37,10 +37,23 @@ npx serve dist         # откроет сайт на http://localhost:3000
 
 Без GitHub: на vercel.com/new нажмите «folder» и выберите готовую папку `dist` (после `npm run build`).
 
+## Деплой на GitHub Pages
+
+`.github/workflows/pages.yml` собирает сайт при каждом push в `main` и публикует `dist/` на https://yuliakovalevskaya.github.io/.
+
+## Форма в подвале
+
+Почта посетителя приходит письмом на `links.email` через сервис FormSubmit (formsubmit.co), без своего сервера.
+Первая отправка присылает на эту почту письмо «Activate Form» — по ссылке в нём форму нужно один раз подтвердить.
+
+## Фон страниц кейсов
+
+Размытые пятна на фоне кейсов — слой «Background» из макетов, данные в `src/cases/case-bgs.js` (отдельно для десктопа и телефона),
+картинка — `public/img/cases/case-bg.webp`.
+
 ## Что нужно доделать
 
-- WhatsApp: вставить ссылку в `links.whatsapp` в `src/content.js` (пока чип без ссылки).
-- Реальные тексты карточек и страницы кейсов: готов TimeManager (src/cases/timemanager.js, картинки в public/img/cases/timemanager/v3/), остальные — по тому же шаблону.
+- Реальные тексты карточек и страницы кейсов: готовы TimeManager и Spending Coach, FitFem и Order Routing — по тому же шаблону.
 
 ## Кейс TimeManager: как устроена страница
 

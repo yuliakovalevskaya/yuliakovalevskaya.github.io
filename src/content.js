@@ -4,12 +4,10 @@ export const links = {
   email: 'yuliakovalevsk@gmail.com',
   telegram: 'https://t.me/yuliakovalevs',
   linkedin: 'https://www.linkedin.com/in/yulia-kovalevskayauxuidesigner/',
-  // TODO: вставьте ссылку на профиль WhatsApp (Настройки → QR-код → Поделиться, вида https://wa.me/qr/XXXX)
-  // или ссылку с номером вида https://wa.me/48XXXXXXXXX
-  whatsapp: '',
+  whatsapp: 'https://wa.me/48571795816',
+  whatsappLabel: '+48 571 795 816',
   behance: 'https://www.behance.net/yuliakovalevskaya',
-  notion: 'https://app.notion.com/p/Portfolio',
-  cv: '/cv/Yulia_Kovalevskaya_CV.pdf',
+  cv: 'https://drive.google.com/file/d/1ycUaZG1SQCZ8jgk5MKYEDwTqRTK4kB-j/view?usp=sharing',
 };
 
 import { ru as tmRu, en as tmEn } from './cases/timemanager.js';
@@ -126,7 +124,7 @@ export const ru = {
     toolsTitle: 'Инструменты',
     tools: ['Figma', 'Miro', 'Canva', 'Adobe (Ps/Ai)', 'Notion', 'Webflow', 'Jira, Confluence'],
     langsTitle: 'Языки',
-    langs: ['English — B2 (Upper-Intermediate)', 'Russian — C2 (Native)', 'Polish — A2 (Elementary)'],
+    langs: ['English — B2 (Upper-Intermediate)', 'Russian — C2 (Native)', 'Polish — A2 (Pre-intermediate)'],
   },
   stages: {
     title: 'Этапы работы',
@@ -180,10 +178,10 @@ export const ru = {
   footer: {
     leave: 'Можете оставить почту — я напишу первой :)',
     placeholder: 'Email',
-    send: 'Отправить запрос',
-    sent: 'Откроется почтовый клиент — просто отправьте письмо',
-    mailSubject: 'Запрос с сайта-портфолио',
-    mailBody: (email) => `Здравствуйте, Юлия! Свяжитесь со мной, пожалуйста: ${email}`,
+    send: 'Отправить',
+    sent: 'Спасибо! Я получила вашу почту и скоро напишу',
+    error: 'Не получилось отправить. Напишите мне напрямую: yuliakovalevsk@gmail.com',
+    mailSubject: 'Новый контакт с сайта-портфолио',
     copyright: '© Yulia Kovalevskaya 2026',
     tagline: 'Сделано с любовью к деталям',
   },
@@ -302,7 +300,7 @@ export const en = {
     toolsTitle: 'Tools',
     tools: ['Figma', 'Miro', 'Canva', 'Adobe (Ps/Ai)', 'Notion', 'Webflow', 'Jira, Confluence'],
     langsTitle: 'Languages',
-    langs: ['English — B2 (Upper-Intermediate)', 'Russian — C2 (Native)', 'Polish — A2 (Elementary)'],
+    langs: ['English — B2 (Upper-Intermediate)', 'Russian — C2 (Native)', 'Polish — A2 (Pre-intermediate)'],
   },
   stages: {
     title: 'How I work',
@@ -356,10 +354,10 @@ export const en = {
   footer: {
     leave: 'Leave your email — I’ll write first :)',
     placeholder: 'Email',
-    send: 'Send request',
-    sent: 'Your mail app will open — just hit send',
-    mailSubject: 'Request from the portfolio website',
-    mailBody: (email) => `Hi Yulia! Please get in touch with me: ${email}`,
+    send: 'Send',
+    sent: 'Thank you! I’ve got your email and will write soon',
+    error: 'Couldn’t send it. Email me directly: yuliakovalevsk@gmail.com',
+    mailSubject: 'New contact from the portfolio website',
     copyright: '© Yulia Kovalevskaya 2026',
     tagline: 'Made with love for details',
   },

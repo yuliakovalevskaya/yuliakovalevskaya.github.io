@@ -1,5 +1,6 @@
 // Главная страница: секции
 import { links } from '../content.js';
+import { mailto } from '../components/chrome.js';
 import { esc, tag, dotBadge, sep, casePath, caseImg } from '../lib/html.js';
 
 const hero = (t) => `
@@ -187,7 +188,7 @@ const testimonials = (t) => `
 </section>`;
 
 const contactChip = (icon, label, value, href) => `
-  ${href ? `<a class="chip" href="${href}" ${href.startsWith('http') ? 'target="_blank" rel="noopener"' : ''}>` : '<span class="chip">'}
+  ${href ? `<a class="chip" href="${href}" ${href.startsWith('http') ? 'target="_blank" rel="noopener"' : 'data-mail'}>` : '<span class="chip">'}
     <img src="/icons/${icon}.svg" width="20" height="20" alt="" /><span>${label}</span><span class="chip__value">${value}</span>
   ${href ? '</a>' : '</span>'}`;
 
@@ -200,15 +201,15 @@ const contacts = (t) => `
         <h3 class="h3">${t.contacts.heading}</h3>
         <p class="lead lead--dark">${t.contacts.text.join('<br />')}</p>
         <div class="buttons">
-          <a class="btn btn--primary btn--lg" href="mailto:${links.email}">${t.contacts.write}</a>
-          <a class="btn btn--secondary btn--lg" href="${links.cv}" download="Yulia_Kovalevskaya_CV.pdf">${t.contacts.cv}</a>
+          <a class="btn btn--primary btn--lg" href="${mailto()}" data-mail>${t.contacts.write}</a>
+          <a class="btn btn--secondary btn--lg" href="${links.cv}" target="_blank" rel="noopener">${t.contacts.cv}</a>
         </div>
       </div>
       <div class="contact-card__right">
-        ${contactChip('mail', 'Mail', links.email, `mailto:${links.email}`)}
+        ${contactChip('mail', 'Mail', links.email, mailto())}
         ${contactChip('linkedin', 'LinkedIn', 'in/yulia-kovalevskayauxuidesigner/', links.linkedin)}
         ${contactChip('telegram', 'Telegram', '@yuliakovalevs', links.telegram)}
-        ${contactChip('whatsapp', 'WhatsApp', '@yuliakovalevs', links.whatsapp)}
+        ${contactChip('whatsapp', 'WhatsApp', links.whatsappLabel, links.whatsapp)}
       </div>
     </div>
   </div>

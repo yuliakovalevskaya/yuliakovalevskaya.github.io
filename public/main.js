@@ -38,16 +38,89 @@ window.__initSite = () => {
     update();
   });
 
-  // Форма в футере: без бэкенда открываем почтовый клиент с готовым письмом
+  // Форма в футере: почта посетителя уходит письмом Юлии через FormSubmit (без своего бэкенда)
   const form = document.querySelector('.footer__form');
-  form?.addEventListener('submit', (e) => {
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = form.email.value.trim();
-    if (!email) return;
-    const body = form.dataset.body.replace('{email}', email);
-    window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(form.dataset.subject)}&body=${encodeURIComponent(body)}`;
-    form.querySelector('.footer__hint').textContent = form.dataset.sent;
+    if (!email || form.classList.contains('is-sending')) return;
+    const hint = form.querySelector('.footer__hint');
+    const btn = form.querySelector('button');
+    form.classList.add('is-sending'); btn.disabled = true; hint.textContent = '';
+    try {
+      const res = await fetch(form.dataset.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email, _subject: form.dataset.subject, _template: 'table', _captcha: 'false', _honey: form._honey.value, page: location.href }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || String(data.success) === 'false') throw new Error(data.message || res.status);
+      hint.textContent = form.dataset.sent;
+      form.reset();
+    } catch {
+      hint.textContent = form.dataset.error;
+    } finally {
+      form.classList.remove('is-sending'); btn.disabled = false;
+    }
   });
+
+  // Ссылки «написать письмо»: на компьютере открываем новое письмо в Gmail (у многих нет почтового приложения
+  // и mailto просто открывает браузер). На телефоне оставляем mailto — откроется письмо в почтовом приложении.
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+    document.querySelectorAll('a[data-mail]').forEach((a) => {
+      const to = a.getAttribute('href').replace(/^mailto:/, '');
+      a.href = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}`;
+      a.target = '_blank'; a.rel = 'noopener';
+    });
+  }
+
+  // Отзывы: перетаскивание мышью, как свайп пальцем на телефоне — лента едет за курсором и по инерции
+  const reviews = document.getElementById('reviews-track');
+  if (reviews && window.matchMedia('(pointer: fine)').matches) {
+    let down = false, moved = false, startX = 0, startLeft = 0, lastX = 0, lastT = 0, v = 0, timer = 0;
+    const snap = getComputedStyle(reviews).scrollSnapType;
+    const stopInertia = () => clearTimeout(timer);
+    reviews.addEventListener('pointerdown', (e) => {
+      if (e.button !== 0) return;
+      stopInertia();
+      down = true; moved = false; startX = lastX = e.clientX; startLeft = reviews.scrollLeft; lastT = performance.now(); v = 0;
+    });
+    window.addEventListener('pointermove', (e) => {
+      if (!down) return;
+      const dx = e.clientX - startX;
+      if (!moved && Math.abs(dx) > 4) {
+        moved = true;
+        reviews.classList.add('is-dragging');
+        reviews.style.scrollSnapType = 'none';
+        reviews.setPointerCapture?.(e.pointerId);
+      }
+      if (!moved) return;
+      const now = performance.now();
+      v = (e.clientX - lastX) / Math.max(now - lastT, 1);
+      lastX = e.clientX; lastT = now;
+      reviews.scrollLeft = startLeft - dx;
+    });
+    const end = () => {
+      if (!down) return;
+      down = false;
+      reviews.classList.remove('is-dragging');
+      if (!moved) return;
+      // Инерция: чем быстрее отпустили, тем дальше уезжает лента; останавливается на ближайшей карточке
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const goal = reviews.scrollLeft - (reduce ? 0 : v * 250);
+      const stops = [...reviews.children].map((c) => c.offsetLeft - reviews.firstElementChild.offsetLeft);
+      const max = reviews.scrollWidth - reviews.clientWidth;
+      const target = Math.min(max, stops.reduce((best, s) => (Math.abs(s - goal) < Math.abs(best - goal) ? s : best), stops[0]));
+      reviews.scrollTo({ left: target, behavior: reduce ? 'auto' : 'smooth' });
+      clearTimeout(timer);
+      timer = setTimeout(() => { reviews.style.scrollSnapType = snap; }, reduce ? 0 : 600);
+    };
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
+    // После перетаскивания клик не должен срабатывать на карточке, картинки не таскаются
+    reviews.addEventListener('click', (e) => { if (moved) { e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    reviews.addEventListener('dragstart', (e) => e.preventDefault());
+  }
 
   // Кейс: слайдеры (обложка и финальный UI) — смена каждые 3 секунды, точки, свайп, стрелки клавиатуры.
   // Автосмена работает всегда, пока слайдер на экране и вкладка открыта; после ручного переключения отсчёт начинается заново.

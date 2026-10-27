@@ -24,6 +24,8 @@ jobs:
         with:
           node-version: 20
       - run: node build.js
+        env:
+          SITE_URL: https://yuliakovalevskaya.github.io  # полные адреса для og:image, canonical и hreflang
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

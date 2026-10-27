@@ -3,6 +3,21 @@
 // иначе — обложка и заглушка «скоро».
 import { readFileSync } from 'node:fs';
 import { esc, tag, dotBadge, sep, casePath, caseImg, homePath, asset } from '../lib/html.js';
+import { caseBgs } from '../cases/case-bgs.js';
+
+// Фоновые пятна блока (см. src/cases/case-bgs.js): по горизонтали — от центра страницы, как в макете
+const bgs = (slug, anchor) => {
+  const set = caseBgs[slug];
+  if (!set) return '';
+  const src = asset('/img/cases/case-bg.webp');
+  const item = (b, kind) => {
+    const half = kind === 'd' ? 720 : 195;
+    const box = `left:calc(50% + ${b.x - half}px);top:${b.dy}px;width:${b.w}px;height:${b.h}px;opacity:${b.o}${b.r ? `;transform:rotate(${b.r}deg)` : ''}`;
+    return `<span class="tm-bg tm-bg--${kind}" style="${box}"><img src="${src}" alt="" width="${b.w}" height="${b.h}" loading="lazy" decoding="async" style="transform:matrix(${b.m.join(',')})" /></span>`;
+  };
+  const html = ['d', 'm'].flatMap((k) => set[k].filter((b) => b.a === anchor).map((b) => item(b, k))).join('');
+  return html ? `<div class="tm-bgs" aria-hidden="true">${html}</div>` : '';
+};
 
 // Размеры картинок (1x): d* — 1280, m*/mhero* — 358. Файл размеров — свой у каждого кейса (detail.assets.dims).
 const dimsCache = {};
@@ -270,6 +285,7 @@ const detail = (t, c) => {
   return `
 <div class="tm">
   <section class="tm-hero">
+    ${bgs(c.slug, 'hero')}
     <div class="container">
       <a class="tm-back" href="${homePath(t.lang)}#portfolio">← ${t.casePage.back}</a>
       <div class="tm-hero__body">
@@ -297,6 +313,7 @@ const detail = (t, c) => {
     </nav>
     ${d.sections.map((s, i) => `
     <section class="tm-section${s.glow ? ' tm-section--glow' : ''}" id="${s.id}" aria-labelledby="${s.id}-title"${s.gap ? ` data-gap="${s.gap}"` : ''}>
+      ${bgs(c.slug, String(i + 1).padStart(2, '0'))}
       <header class="tm-head">
         <p class="tm-eyebrow"><b>${String(i + 1).padStart(2, '0')}</b>${sep}<span>${esc(s.eyebrow)}</span></p>
         <h2 class="tm-h2" id="${s.id}-title">${esc(s.title)}</h2>
@@ -304,7 +321,7 @@ const detail = (t, c) => {
       </header>
       ${s.blocks.map((b) => block(b, L)).join('\n')}
     </section>${h.video && h.sliderAfter === s.id ? `
-    <div class="tm-gallery">${slider(h.slides, { labels: h.slidesLabel, label: h.title, kind: 'hero', L, lazy: true })}</div>` : ''}`).join('')}
+    <div class="tm-gallery">${bgs(c.slug, 'gallery')}${slider(h.slides, { labels: h.slidesLabel, label: h.title, kind: 'hero', L, lazy: true })}</div>` : ''}`).join('')}
 
     <div class="tm-cta">
       <div class="tm-cta__text">

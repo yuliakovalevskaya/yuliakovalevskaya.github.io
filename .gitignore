@@ -5,3 +5,4 @@ preview.py
 .DS_Store
 
 .vercel
+.claude/
