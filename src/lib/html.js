@@ -10,6 +10,7 @@ export const sep = '<i class="sep" aria-hidden="true"></i>';
 export const langPrefix = (lang) => (lang === 'ru' ? '' : `/${lang}`);
 export const homePath = (lang) => `${langPrefix(lang)}/`;
 export const casePath = (lang, slug) => `${langPrefix(lang)}/cases/${slug}/`;
+export const privacyPath = (lang) => `${langPrefix(lang)}/privacy/`;
 
 // Картинка кейса = экспорт компонента Project из UI kit (Figma 2:21652).
 // Desktop-вариант 640×520 → <name>-640/-1280.webp, Mobile-вариант 350×284 → <name>-m-350/-m-700.webp (до 767 px).

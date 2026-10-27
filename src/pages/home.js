@@ -47,7 +47,7 @@ const values = (t) => `
   </div>
 </section>`;
 
-const figmaCursor = () => `
+export const figmaCursor = () => `
   <div class="figma-cursor" aria-hidden="true">
     <span class="figma-cursor__frame"><img src="/icons/figma.svg" width="30" height="30" alt="" /><i></i><i></i><i></i><i></i></span>
     <img class="figma-cursor__arrow" src="/icons/cursor.svg" width="40" height="44" alt="" />
@@ -65,8 +65,8 @@ const portfolio = (t) => `
     </div>
     <div class="cases">
       ${t.portfolio.cases.map((c, i) => `
-      <article class="case ${i % 2 ? 'case--reverse' : ''}">
-        <a class="case__media" href="${casePath(t.lang, c.slug)}" tabindex="-1" aria-hidden="true">${caseImg(c.image, c.title)}</a>
+      <article class="case${i % 2 ? ' case--reverse' : ''}${c.detail ? '' : ' case--soon'}">
+        <div class="case__media">${caseImg(c.image, c.title)}</div>
         <div class="case__body">
           <div class="case__info">
             <p class="case__meta">${c.meta}</p>
@@ -75,7 +75,10 @@ const portfolio = (t) => `
             <div class="tags">${c.tags.map(tag).join('')}</div>
             <p class="case__metric"><strong>${c.metric}</strong><span>${c.metricLabel}</span></p>
           </div>
-          <a class="btn btn--primary btn--md" href="${casePath(t.lang, c.slug)}">${t.portfolio.button}</a>
+          ${c.detail
+            // Ссылка растянута на всю карточку (::after), поэтому кликается любое место
+            ? `<a class="btn btn--primary btn--md case__link" href="${casePath(t.lang, c.slug)}">${t.portfolio.button}</a>`
+            : `<p class="case__soon">${t.portfolio.soon}</p>`}
         </div>
       </article>`).join('')}
     </div>
@@ -209,7 +212,9 @@ const contacts = (t) => `
         ${contactChip('mail', 'Mail', links.email, mailto())}
         ${contactChip('linkedin', 'LinkedIn', 'in/yulia-kovalevskayauxuidesigner/', links.linkedin)}
         ${contactChip('telegram', 'Telegram', '@yuliakovalevs', links.telegram)}
-        ${contactChip('whatsapp', 'WhatsApp', links.whatsappLabel, links.whatsapp)}
+        <a class="chip" href="https://wa.me/" target="_blank" rel="noopener" data-wa="${links.whatsappDigits}">
+          <img src="/icons/whatsapp.svg" width="20" height="20" alt="" /><span>WhatsApp</span><span class="chip__value">@yuliakovalevs</span>
+        </a>
       </div>
     </div>
   </div>

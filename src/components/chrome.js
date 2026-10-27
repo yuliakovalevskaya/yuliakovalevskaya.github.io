@@ -1,6 +1,6 @@
 // Шапка и подвал — общие для всех страниц
 import { links } from '../content.js';
-import { esc, homePath } from '../lib/html.js';
+import { esc, homePath, privacyPath } from '../lib/html.js';
 
 // Ссылка «написать письмо»: на телефоне mailto сразу открывает новое письмо в почтовом приложении,
 // на компьютере main.js открывает окно нового письма Gmail (см. [data-mail]).
@@ -36,10 +36,10 @@ export const header = ({ t, isHome, altPath }) => {
     <div class="header__actions">
       ${langSwitch(t, altPath)}
       <a class="btn btn--secondary btn--sm" href="${links.cv}" target="_blank" rel="noopener">${t.nav.cv}</a>
-      <a class="btn btn--primary btn--sm" href="${mailto()}" data-mail>${t.nav.contact}</a>
+      <a class="btn btn--primary btn--sm" href="${a('contacts')}">${t.nav.contact}</a>
     </div>
     <div class="header__mobile">
-      <a class="btn btn--primary btn--sm" href="${mailto()}" data-mail>${t.nav.contact}</a>
+      <a class="btn btn--primary btn--sm" href="${a('contacts')}">${t.nav.contact}</a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu"
         data-open-label="${t.nav.openMenu}" data-close-label="${t.nav.closeMenu}" aria-label="${t.nav.openMenu}">
         <span></span><span></span><span></span>
@@ -75,6 +75,7 @@ export const footer = ({ t }) => `
         <input id="lead-email" type="email" name="email" required placeholder="${t.footer.placeholder}" autocomplete="email" />
         <input class="visually-hidden" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button class="btn btn--white" type="submit">${t.footer.send}</button>
+        <p class="footer__consent">${t.footer.consent} <a href="${privacyPath(t.lang)}">${t.footer.privacy}</a></p>
         <p class="footer__hint" role="status" aria-live="polite"></p>
       </form>
     </div>

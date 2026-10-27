@@ -4,8 +4,8 @@ export const links = {
   email: 'yuliakovalevsk@gmail.com',
   telegram: 'https://t.me/yuliakovalevs',
   linkedin: 'https://www.linkedin.com/in/yulia-kovalevskayauxuidesigner/',
-  whatsapp: 'https://wa.me/48571795816',
-  whatsappLabel: '+48 571 795 816',
+  // Номер не пишем в разметке открытым текстом: ссылку на чат собирает main.js при клике (см. [data-wa])
+  whatsappDigits: '61859717584',
   behance: 'https://www.behance.net/yuliakovalevskaya',
   cv: 'https://drive.google.com/file/d/1ycUaZG1SQCZ8jgk5MKYEDwTqRTK4kB-j/view?usp=sharing',
 };
@@ -36,7 +36,7 @@ export const ru = {
     role: 'Product & UX/UI Designer',
     title: ['Дизайнер с инженерным', 'и творческим мышлением'],
     text: 'Проектирую интерфейсы, отталкиваясь от бизнес-задач и исследований — и довожу решения до измеримого результата.',
-    badges: ['Web, Mobile & Platforms', 'IOS / Android', 'B2C / B2B / SaaS', 'Design Systems', 'AI-first workflow'],
+    badges: ['Web, Mobile & Platforms', 'iOS / Android', 'B2C / B2B / SaaS', 'Design Systems', 'AI-first workflow'],
     note: 'Предпочитаю проекты, где нужно разобраться в продукте, найти и решить проблему, а потом сделать дизайн.',
     buttons: { portfolio: 'Портфолио', cv: 'Смотреть CV', write: 'Написать' },
     status: { location: 'Poland', open: 'Open to work', exp: '4+ лет опыта', projects: '20+ проектов', stacks: '5+ стеков' },
@@ -55,6 +55,7 @@ export const ru = {
     title: 'Портфолио',
     text: 'Ниже показаны избранные кейсы с четким дизайн-процессом: проблема, процесс и результат.',
     button: 'Смотреть кейс',
+    soon: 'Кейс скоро появится',
     // TODO: в макете у всех четырёх карточек пока одинаковый текст — замените на реальные кейсы
     cases: [
       {
@@ -135,7 +136,7 @@ export const ru = {
       { title: 'Анализ конкурентов и целевой аудитории', text: 'Продумываю сильные, слабые стороны конкурентов и потребности ЦА.', points: ['Аналитика', 'Гипотезы', 'Research'] },
       { title: 'Структура проекта и пути пользователей', text: 'Позволяет обнаружить возможные риски и найти для них решения.', points: ['Solutions', 'User Flow', 'IA'] },
       { title: 'Референсы и прототип', text: 'Подбираю референсы, определяю стиль, затем создаю прототип с ключевыми элементами.', points: ['Референсы', 'Wireframe', 'Prototyping'] },
-      { title: 'Разработка дизайна проекта', text: 'Проектирование всех экранов проекта и с подробным UI kit.', points: ['UI design', 'Ui kit & Design Library', 'Design System'] },
+      { title: 'Разработка дизайна проекта', text: 'Проектирование всех экранов проекта и с подробным UI kit.', points: ['UI design', 'UI kit & Design Library', 'Design System'] },
       { title: 'Проверка и передача в разработку', text: 'Внесение правок от тестирования и подготовка к разработке. Работа с фидбэком.', points: ['Interaction', 'Тестирование', 'Разработка'] },
     ],
     teamTitle: 'Как я работаю в команде',
@@ -145,7 +146,7 @@ export const ru = {
     title: 'Отзывы',
     prev: 'Предыдущий отзыв', next: 'Следующий отзыв',
     items: [
-      { tag: 'Health · iOS · Fitness', avatar: '/img/avatar-1.webp', name: 'Шамиль Ашурилов', role: 'Фитнес приложение на IOS',
+      { tag: 'Health · iOS · Fitness', avatar: '/img/avatar-1.webp', name: 'Шамиль Ашурилов', role: 'Фитнес приложение на iOS',
         text: 'Мне было приятно работать с Юлией, исключительным UI/UX-дизайнером, которая по-настоящему преобразила наш проект. Ее креативность и внимание к деталям проявились в каждом аспекте дизайна, в результате чего получился визуально потрясающий и очень функциональный интерфейс.' },
       { tag: 'EdTech · Chess · Web', avatar: '/img/avatar-2.webp', name: 'Радюш Роман', role: 'Онлайн школа шахмат',
         text: 'Работа с Юлией полностью удовлетворила наши потребности. Учитывались наши пожелания, при этом предлагались рекомендации и корректировалось видение дизайна, чтобы визуал лучше отвечал задачам сайта. Все задачи обсуждались подробно, изменения вносились оперативно. Проект был завершен в срок, и итоговый результат соответствует нашим ожиданиям.' },
@@ -161,10 +162,10 @@ export const ru = {
   },
   contacts: {
     title: 'Контакты',
-    heading: 'Ищете Product или UX/UI Designer дизайнера?',
+    heading: 'Ищете Product или UX/UI дизайнера?',
     text: ['Работаете над проектом, который нужно улучшить и превратить в удачный пользовательский опыт?', 'Открыта к full-time позициям с возможностью работать в Польше, удалёнка и офис — давайте обсудим.'],
     write: 'Написать мне',
-    cv: 'Скачать CV',
+    cv: 'Смотреть CV',
   },
   casePage: {
     back: 'Все кейсы',
@@ -182,6 +183,8 @@ export const ru = {
     sent: 'Спасибо! Я получила вашу почту и скоро напишу',
     error: 'Не получилось отправить. Напишите мне напрямую: yuliakovalevsk@gmail.com',
     mailSubject: 'Новый контакт с сайта-портфолио',
+    consent: 'Нажимая «Отправить», вы соглашаетесь на обработку вашего email, чтобы я могла ответить.',
+    privacy: 'Политика конфиденциальности',
     copyright: '© Yulia Kovalevskaya 2026',
     tagline: 'Сделано с любовью к деталям',
   },
@@ -208,7 +211,7 @@ export const en = {
     role: 'Product & UX/UI Designer',
     title: ['A designer with an engineering', 'and creative mindset'],
     text: 'I design interfaces grounded in business goals and research — and take solutions all the way to measurable results.',
-    badges: ['Web, Mobile & Platforms', 'IOS / Android', 'B2C / B2B / SaaS', 'Design Systems', 'AI-first workflow'],
+    badges: ['Web, Mobile & Platforms', 'iOS / Android', 'B2C / B2B / SaaS', 'Design Systems', 'AI-first workflow'],
     note: 'I prefer projects where I need to understand the product, find and solve the problem first, and then design.',
     buttons: { portfolio: 'Portfolio', cv: 'View CV', write: 'Message me' },
     status: { location: 'Poland', open: 'Open to work', exp: '4+ years of experience', projects: '20+ projects', stacks: '5+ stacks' },
@@ -227,6 +230,7 @@ export const en = {
     title: 'Portfolio',
     text: 'Selected case studies with a clear design process: problem, process and result.',
     button: 'View case',
+    soon: 'Case coming soon',
     cases: ['spending-coach', 'timemanager', 'fitfem', 'order-routing'].map((slug, i) => ({
       slug,
       image: `case-${i + 1}`,
@@ -311,7 +315,7 @@ export const en = {
       { title: 'Competitor & audience analysis', text: 'I map competitors’ strengths and weaknesses and the audience’s needs.', points: ['Analytics', 'Hypotheses', 'Research'] },
       { title: 'Project structure & user flows', text: 'Reveals potential risks and helps find solutions for them.', points: ['Solutions', 'User Flow', 'IA'] },
       { title: 'References & prototype', text: 'I collect references, define the style, then build a prototype with the key elements.', points: ['References', 'Wireframe', 'Prototyping'] },
-      { title: 'Project design', text: 'Designing every screen of the project with a detailed UI kit.', points: ['UI design', 'Ui kit & Design Library', 'Design System'] },
+      { title: 'Project design', text: 'Designing every screen of the project with a detailed UI kit.', points: ['UI design', 'UI kit & Design Library', 'Design System'] },
       { title: 'Review & dev hand-off', text: 'Applying fixes from testing and preparing for development. Working with feedback.', points: ['Interaction', 'Testing', 'Development'] },
     ],
     teamTitle: 'How I work in a team',
@@ -340,7 +344,7 @@ export const en = {
     heading: 'Looking for a Product or UX/UI Designer?',
     text: ['Working on a project that needs to be improved and turned into a great user experience?', 'I’m open to full-time positions in Poland — remote or on-site. Let’s talk.'],
     write: 'Message me',
-    cv: 'Download CV',
+    cv: 'View CV',
   },
   casePage: {
     back: 'All cases',
@@ -358,6 +362,8 @@ export const en = {
     sent: 'Thank you! I’ve got your email and will write soon',
     error: 'Couldn’t send it. Email me directly: yuliakovalevsk@gmail.com',
     mailSubject: 'New contact from the portfolio website',
+    consent: 'By clicking “Send”, you agree to the processing of your email so I can reply.',
+    privacy: 'Privacy policy',
     copyright: '© Yulia Kovalevskaya 2026',
     tagline: 'Made with love for details',
   },

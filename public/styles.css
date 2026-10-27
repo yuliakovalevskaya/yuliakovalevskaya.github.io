@@ -204,6 +204,11 @@ button { font: inherit; cursor: pointer; }
 @media (prefers-reduced-motion: reduce) { .case picture img { transition: none; } .case:hover picture img { transform: none; } }
 .case:active { background: var(--card-pressed-bg); box-shadow: var(--card-pressed-shadow); }
 .case--reverse { flex-direction: row-reverse; }
+.case:not(.case--soon) { position: relative; cursor: pointer; }
+.case__link::after { content: ''; position: absolute; inset: 0; border-radius: inherit; }
+.case--soon:hover, .case--soon:active { box-shadow: none; background: var(--white); }
+.case--soon:hover picture img { transform: none; }
+.case__soon { font-size: 14px; font-weight: 400; line-height: 1.4; letter-spacing: 0.42px; color: #1775d2; }
 .case__media { display: block; flex: 0 0 50%; overflow: hidden; }
 .case__media picture { display: block; width: 100%; height: 100%; }
 .case__media img { width: 100%; height: 100%; object-fit: cover; }
@@ -339,6 +344,39 @@ button { font: inherit; cursor: pointer; }
 .footer__form input:focus { border-color: var(--white); background: rgba(255, 255, 255, 0.22); }
 .footer__form .btn { margin-top: 12px; }
 .footer__hint { font-size: 13px; opacity: .85; min-height: 1em; }
+/* Согласие на обработку email (T4 Regular, белый 60%) */
+.footer__consent { max-width: 358px; margin-top: 12px; font-size: 12px; font-weight: 400; line-height: 1.4; letter-spacing: 0.24px; color: var(--white-60); }
+.footer__consent a { color: inherit; text-decoration: underline; text-underline-offset: 2px; transition: color .2s; }
+.footer__consent a:hover { color: var(--white); }
+
+/* ==== Политика конфиденциальности ==== */
+.legal { padding-top: 48px; }
+.legal__inner { max-width: 844px; display: flex; flex-direction: column; gap: 24px; }
+.legal__inner .case-page__back { margin-bottom: 0; }
+.legal__updated { font-size: 14px; color: var(--grey-600); margin-top: -8px; }
+.legal__block { display: flex; flex-direction: column; gap: 8px; }
+.legal__h { font-size: 18px; font-weight: 600; line-height: 1.3; color: var(--black); }
+.legal__block p { font-size: 16px; line-height: 1.6; letter-spacing: 0.32px; color: var(--grey-700); }
+.legal__block a { color: var(--blue); }
+
+/* ==== 404 ==== */
+.nf { padding: 72px 0 120px; }
+.nf__card { position: relative; overflow: hidden; display: flex; align-items: center; justify-content: space-between; gap: 48px; padding: 72px 64px;
+  border-radius: 32px; border: 1px solid var(--border); background: var(--white-60); }
+.nf__text { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; max-width: 560px; }
+.nf__code { font-size: 160px; font-weight: 700; line-height: 1; letter-spacing: -4px; color: var(--blue); }
+.nf__text, .nf__deco { position: relative; }
+.nf__deco { flex: none; width: 180px; height: 180px; margin-right: 80px; }
+.nf__deco .figma-cursor { transform: scale(2); transform-origin: 0 0; }
+.nf__blob { position: absolute; right: -120px; top: 50%; width: 640px; height: 640px; max-width: none; transform: translateY(-50%) rotate(180deg); opacity: .35; filter: blur(40px); pointer-events: none; }
+@media (max-width: 768px) {
+  .nf { padding: 32px 0 80px; }
+  .nf__card { flex-direction: column-reverse; align-items: flex-start; gap: 24px; padding: 32px 20px; border-radius: 24px; }
+  .nf__code { font-size: 96px; letter-spacing: -2px; }
+  .nf__deco { width: 90px; height: 90px; margin-right: 0; }
+  .nf__deco .figma-cursor { transform: none; }
+  .nf__blob { width: 420px; height: 420px; right: -160px; top: 0; transform: rotate(180deg); }
+}
 .footer__bottom { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 40px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.15); font-size: 13px; color: var(--white-60); }
 
 /* ==== Reveal on scroll ==== */
@@ -422,6 +460,7 @@ button { font: inherit; cursor: pointer; }
   .footer__row { flex-direction: column; gap: 32px; }
   .footer__form { width: 100%; min-width: 0; }
   .footer__form label { white-space: normal; }
+  .footer__consent { max-width: none; }
   .footer__bottom { justify-content: flex-start; }
 }
 
@@ -439,6 +478,8 @@ button { font: inherit; cursor: pointer; }
 .mini-case:hover { box-shadow: var(--card-hover-shadow); }
 .mini-case:active { background: var(--card-pressed-bg); box-shadow: var(--card-pressed-shadow); }
 .mini-case img { border-radius: 16px; width: 100%; height: auto; }
+.mini-case--soon:hover, .mini-case--soon:active { box-shadow: none; background: var(--white); }
+.mini-case__soon { padding: 0 8px; margin-top: -8px; }
 .mini-case__title { font-size: 18px; font-weight: 600; line-height: 1.3; padding: 0 8px; }
 @media (max-width: 768px) {
   .case-page__other { grid-template-columns: 1fr; }
@@ -459,7 +500,9 @@ button { font: inherit; cursor: pointer; }
 
 /* ---- Фоновые пятна (слой Background из макета) ---- */
 .tm-bgs { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
-.tm-bg { position: absolute; overflow: hidden; }
+/* Как в Figma: картинка кадрирована прямоугольником, а размытие (Layer blur 116) накладывается поверх —
+   края мягко расходятся за пределы прямоугольника и не выглядят обрезанными */
+.tm-bg { position: absolute; overflow: hidden; filter: blur(58px); }
 .tm-bg img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; max-width: none; transform-origin: 0 0; }
 .tm-bg--m { display: none; }
 @media (max-width: 767px) { .tm-bg--d { display: none; } .tm-bg--m { display: block; } }
@@ -578,6 +621,10 @@ button { font: inherit; cursor: pointer; }
 .tm-audience { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: -16px; }
 .tm-box { display: flex; flex-direction: column; gap: 12px; padding: 20px; border-radius: 12px; border: 1px solid var(--border); background: rgba(255, 255, 255, 0.8); }
 .tm-box--blue { background: var(--blue-6); border-color: transparent; }
+/* «Кто пользуется»: состояния Hover и Pressed из компонента в UI kit */
+.tm-box:not(.tm-box--blue) { transition: box-shadow .25s, background-color .25s; }
+.tm-box:not(.tm-box--blue):hover { box-shadow: 6px -2px 52px rgba(48, 132, 216, 0.1); }
+.tm-box:not(.tm-box--blue):active { background: #f9f9f9; box-shadow: none; }
 .tm-box .label { font-size: 14px; color: #0d121c; }
 .tm-box p:not(.label) { font-size: 14px; line-height: 1.6; letter-spacing: 0.28px; color: #434b5b; }
 

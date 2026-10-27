@@ -74,6 +74,16 @@ window.__initSite = () => {
     });
   }
 
+  // WhatsApp: номер хранится в разметке задом наперёд и подставляется в ссылку только в момент клика,
+  // чтобы его не было видно при наведении и не собирали боты
+  document.querySelectorAll('a[data-wa]').forEach((a) => {
+    const open = () => { a.href = `https://wa.me/${a.dataset.wa.split('').reverse().join('')}`; };
+    a.addEventListener('pointerdown', open);
+    a.addEventListener('keydown', (e) => { if (e.key === 'Enter') open(); });
+    a.addEventListener('click', open);
+    ['pointerleave', 'blur'].forEach((ev) => a.addEventListener(ev, () => { a.href = 'https://wa.me/'; }));
+  });
+
   // Отзывы: перетаскивание мышью, как свайп пальцем на телефоне — лента едет за курсором и по инерции
   const reviews = document.getElementById('reviews-track');
   if (reviews && window.matchMedia('(pointer: fine)').matches) {

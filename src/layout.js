@@ -8,7 +8,8 @@ const FONTS = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600
 const SWITZER = 'https://api.fontshare.com/v2/css?f[]=switzer@500&display=swap';
 
 // page: { t, path, altPath, isHome, title, description, image, body }
-export function layout({ t, path, altPath, isHome = false, title, description, image = '/img/hero-1040.webp', body, siteUrl = '' }) {
+// noindex — служебные страницы (404) не попадают в поиск; script — дополнительный код в конце <body>
+export function layout({ t, path, altPath, isHome = false, title, description, image = '/img/hero-1040.webp', body, siteUrl = '', noindex = false, script = '' }) {
   const ruPath = t.lang === 'ru' ? path : altPath;
   const enPath = t.lang === 'en' ? path : altPath;
   return `<!doctype html>
@@ -17,7 +18,7 @@ export function layout({ t, path, altPath, isHome = false, title, description, i
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}" />
+  <meta name="description" content="${esc(description)}" />${noindex ? '\n  <meta name="robots" content="noindex" />' : ''}
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(description)}" />
   <meta property="og:image" content="${siteUrl}${image}" />
@@ -42,7 +43,7 @@ ${typograph(body, t.lang)}
   <button class="to-top" type="button" aria-label="${t.lang === 'ru' ? 'Наверх' : 'Back to top'}" title="${t.lang === 'ru' ? 'Наверх' : 'Back to top'}" hidden>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 16 12.73 7.77a1 1 0 0 0-1.46 0L3.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <script src="/main.js" defer></script>
+  <script src="/main.js" defer></script>${script}
 </body>
 </html>`;
 }

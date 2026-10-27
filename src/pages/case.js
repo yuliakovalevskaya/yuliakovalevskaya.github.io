@@ -246,11 +246,16 @@ const otherCases = (t, c) => {
   return `
     <h2 class="h3 case-page__other-title">${t.casePage.other}</h2>
     <div class="case-page__other">
-      ${others.map((o) => `
+      ${others.map((o) => o.detail ? `
       <a class="mini-case" href="${casePath(t.lang, o.slug)}">
         ${caseImg(o.image, o.title)}
         <span class="mini-case__title">${esc(o.title)}</span>
-      </a>`).join('')}
+      </a>` : `
+      <div class="mini-case mini-case--soon">
+        ${caseImg(o.image, o.title)}
+        <span class="mini-case__title">${esc(o.title)}</span>
+        <span class="case__soon mini-case__soon">${t.portfolio.soon}</span>
+      </div>`).join('')}
     </div>`;
 };
 
