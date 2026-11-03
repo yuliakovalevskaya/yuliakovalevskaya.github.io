@@ -1001,7 +1001,7 @@ body.menu-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
 .consent__text a:hover { color: var(--dark-blue); }
 .consent__actions { display: flex; gap: 12px; margin-top: 4px; }
 .consent__actions .btn { flex: 1; }
-.footer__cookies { padding: 0; border: 0; background: none; color: inherit; font-size: inherit; text-decoration: underline; text-underline-offset: 2px; transition: color .2s; }
+.footer__cookies { display: inline-block; margin-top: 4px; padding: 0; border: 0; background: none; color: inherit; font: inherit; letter-spacing: inherit; text-decoration: underline; text-underline-offset: 2px; transition: color .2s; }
 .footer__cookies:hover { color: var(--white); }
 @media (max-width: 768px) {
   .consent { left: 16px; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); width: auto; padding: 20px; }

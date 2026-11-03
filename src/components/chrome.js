@@ -56,7 +56,7 @@ export const header = ({ t, isHome, altPath }) => {
 </header>`;
 };
 
-// consentLabel — кнопка «Настройки cookies»: есть, только когда подключён Clarity
+// consentLabel — кнопка «Настройки cookies» под строкой согласия: есть, только когда подключён Clarity
 export const footer = ({ t, consentLabel = '' }) => `
 <footer class="footer">
   <div class="container">
@@ -76,10 +76,10 @@ export const footer = ({ t, consentLabel = '' }) => `
         <input id="lead-email" type="email" name="email" required placeholder="${t.footer.placeholder}" autocomplete="email" />
         <input class="visually-hidden" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />
         <button class="btn btn--white" type="submit">${t.footer.send}</button>
-        <p class="footer__consent">${t.footer.consent} <a href="${privacyPath(t.lang)}">${t.footer.privacy}</a></p>
+        <p class="footer__consent">${t.footer.consent} <a href="${privacyPath(t.lang)}">${t.footer.privacy}</a>.${consentLabel ? `<br><button class="footer__cookies" type="button" data-consent-open>${consentLabel}</button>` : ''}</p>
         <p class="footer__hint" role="status" aria-live="polite"></p>
       </form>
     </div>
-    <div class="footer__bottom"><span>${t.footer.copyright}</span>${consentLabel ? `<button class="footer__cookies" type="button" data-consent-open>${consentLabel}</button>` : ''}<span>${t.footer.tagline}</span></div>
+    <div class="footer__bottom"><span>${t.footer.copyright}</span><span>${t.footer.tagline}</span></div>
   </div>
 </footer>`;
