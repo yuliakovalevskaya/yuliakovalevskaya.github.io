@@ -279,3 +279,61 @@ window.__initSite = () => {
   }
 };
 window.__initSite();
+
+// Согласие на Microsoft Clarity (карты кликов, прокрутка, записи сессий). Баннер есть в разметке, только когда
+// задан ID проекта. Выбор хранится в localStorage на 6 месяцев; «Настройки cookies» в подвале открывают баннер снова.
+(() => {
+  const banner = document.querySelector('.consent');
+  if (!banner) return;
+  const KEY = 'consent-clarity';
+  const MAX_AGE = 1000 * 60 * 60 * 24 * 182;
+  const read = () => {
+    try {
+      const v = JSON.parse(localStorage.getItem(KEY));
+      return v && Date.now() - v.at < MAX_AGE ? v.value : null;
+    } catch { return null; }
+  };
+  const save = (value) => { try { localStorage.setItem(KEY, JSON.stringify({ value, at: Date.now() })); } catch {} };
+  // Свои визиты с localhost не записываем
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+
+  const loadClarity = () => {
+    if (window.clarity || local) return;
+    const id = banner.dataset.clarity;
+    window.clarity = function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+    const s = document.createElement('script');
+    s.async = true; s.src = `https://www.clarity.ms/tag/${id}`;
+    document.head.appendChild(s);
+    window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+    window.clarity('set', 'lang', banner.dataset.lang);
+  };
+
+  const show = (open) => {
+    banner.hidden = !open;
+    document.body.classList.toggle('consent-open', open);
+    if (open) requestAnimationFrame(() => banner.classList.add('is-visible'));
+    else banner.classList.remove('is-visible');
+  };
+
+  const choose = (value) => {
+    const was = read();
+    save(value);
+    show(false);
+    if (value === 'granted') loadClarity();
+    else if (was === 'granted' && window.clarity) {
+      // Отзыв согласия: Clarity удаляет свои cookies, перезагрузка выгружает скрипт
+      window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'denied' });
+      setTimeout(() => location.reload(), 300);
+    }
+  };
+
+  banner.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-consent]');
+    if (btn) choose(btn.dataset.consent);
+  });
+  document.addEventListener('click', (e) => { if (e.target.closest('[data-consent-open]')) show(true); });
+
+  const v = read();
+  if (v === 'granted') loadClarity();
+  else if (v === null) setTimeout(() => show(true), 1200);
+})();

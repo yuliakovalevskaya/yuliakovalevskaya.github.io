@@ -1,11 +1,59 @@
 // HTML-оболочка любой страницы: <head>, шапка, контент, подвал
-import { esc } from './lib/html.js';
+import { esc, privacyPath } from './lib/html.js';
 import { typograph } from './lib/typograph.js';
 import { header, footer } from './components/chrome.js';
 
 const FONTS = 'https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Montserrat:ital,wght@1,300&family=Lora:wght@700&display=swap';
 // Switzer (бейджи) — шрифт Fontshare, в Google Fonts его нет
 const SWITZER = 'https://api.fontshare.com/v2/css?f[]=switzer@500&display=swap';
+
+// Vercel Web Analytics: просмотры, посетители, источники, страны, устройства. Без cookies.
+// Скрипт есть только на хостинге Vercel, поэтому на GitHub Pages и локально он не подключается.
+const ANALYTICS = `
+  <script>
+    if (!/(github\\.io|localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) {
+      window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+      var va = document.createElement('script'); va.defer = true; va.src = '/_vercel/insights/script.js'; document.head.appendChild(va);
+    }
+  </script>`;
+
+// Microsoft Clarity: карты кликов, глубина прокрутки, записи сессий. Ставит cookies, поэтому грузится
+// только после согласия в баннере (логика — в main.js). ID проекта: clarity.microsoft.com → Settings → Overview.
+// Пока ID пустой, баннер не показывается и Clarity не подключается.
+const CLARITY_ID = process.env.CLARITY_ID || 'z825mjs5ti';
+
+const consentText = {
+  ru: {
+    title: 'Можно проанализировать, как вы читаете сайт?',
+    text: 'Microsoft Clarity запишет клики и прокрутку. Имя и почту он не видит.',
+    more: 'Подробнее',
+    accept: 'Разрешить',
+    decline: 'Отказаться',
+    settings: 'Настройки cookies',
+  },
+  en: {
+    title: 'May I analyze how you read the site?',
+    text: 'Microsoft Clarity will record clicks and scrolling. It never sees your name or email.',
+    more: 'Learn more',
+    accept: 'Allow',
+    decline: 'Decline',
+    settings: 'Cookie settings',
+  },
+};
+
+const consentBanner = (t) => {
+  if (!CLARITY_ID) return '';
+  const c = consentText[t.lang];
+  return `
+  <div class="consent" role="dialog" aria-live="polite" aria-labelledby="consent-title" data-clarity="${CLARITY_ID}" data-lang="${t.lang}" hidden>
+    <p class="consent__title" id="consent-title">${c.title}</p>
+    <p class="consent__text">${c.text} <a href="${privacyPath(t.lang)}">${c.more}</a></p>
+    <div class="consent__actions">
+      <button class="btn btn--primary btn--sm" type="button" data-consent="granted">${c.accept}</button>
+      <button class="btn btn--secondary btn--sm" type="button" data-consent="denied">${c.decline}</button>
+    </div>
+  </div>`;
+};
 
 // page: { t, path, altPath, isHome, title, description, image, body }
 // noindex — служебные страницы (404) не попадают в поиск; script — дополнительный код в конце <body>
@@ -39,11 +87,12 @@ export function layout({ t, path, altPath, isHome = false, title, description, i
   <main>
 ${typograph(body, t.lang)}
   </main>
-  ${typograph(footer({ t }), t.lang)}
+  ${typograph(footer({ t, consentLabel: CLARITY_ID ? consentText[t.lang].settings : '' }), t.lang)}
   <button class="to-top" type="button" aria-label="${t.lang === 'ru' ? 'Наверх' : 'Back to top'}" title="${t.lang === 'ru' ? 'Наверх' : 'Back to top'}" hidden>
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.5 16 12.73 7.77a1 1 0 0 0-1.46 0L3.5 16" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
   </button>
-  <script src="/main.js" defer></script>${script}
+  ${typograph(consentBanner(t), t.lang)}
+  <script src="/main.js" defer></script>${ANALYTICS}${script}
 </body>
 </html>`;
 }

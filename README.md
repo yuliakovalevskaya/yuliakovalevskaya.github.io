@@ -37,6 +37,18 @@ npx serve dist         # откроет сайт на http://localhost:3000
 
 Без GitHub: на vercel.com/new нажмите «folder» и выберите готовую папку `dist` (после `npm run build`).
 
+## Аналитика
+
+Два сервиса, оба бесплатные:
+
+**Vercel Web Analytics** (`src/layout.js`, константа `ANALYTICS`) — работает у всех посетителей, без cookies и без баннера: посетители, просмотры страниц, какие страницы (главная, кейсы, `/` и `/en/`), источники (LinkedIn, Google, прямые заходы), страны, устройства, браузеры, ОС. Включается один раз: Vercel → Project → Analytics → Enable. Работает только на Vercel. Тариф Hobby: 50 000 событий в месяц, отчёты за последний месяц.
+
+**Microsoft Clarity** (`src/layout.js`, константа `CLARITY_ID`; логика в `public/main.js`) — только после согласия в баннере: карты кликов, глубина прокрутки, записи сессий, «яростные» клики, время на странице, а также страны, устройства, браузеры, ОС и источники. Без лимитов.
+Подключение: clarity.microsoft.com → New project → Settings → Overview → скопировать Project ID и вставить в `CLARITY_ID` (или задать переменную окружения `CLARITY_ID` при сборке). Пока ID пустой, баннер не показывается.
+Выбор посетителя хранится в localStorage 6 месяцев; кнопка «Настройки cookies» в подвале открывает баннер снова. С localhost записи не отправляются.
+
+Чтобы переходы из LinkedIn не терялись в «прямых» (приложение LinkedIn часто не передаёт источник), ставьте в профиле и постах ссылку с меткой: `https://yuliakovalevskayaportfolio.vercel.app/en/?utm_source=linkedin`.
+
 ## Деплой на GitHub Pages
 
 `.github/workflows/pages.yml` собирает сайт при каждом push в `main` и публикует `dist/` на https://yuliakovalevskaya.github.io/.

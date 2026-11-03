@@ -56,7 +56,8 @@ export const header = ({ t, isHome, altPath }) => {
 </header>`;
 };
 
-export const footer = ({ t }) => `
+// consentLabel — кнопка «Настройки cookies»: есть, только когда подключён Clarity
+export const footer = ({ t, consentLabel = '' }) => `
 <footer class="footer">
   <div class="container">
     <div class="footer__row">
@@ -79,6 +80,6 @@ export const footer = ({ t }) => `
         <p class="footer__hint" role="status" aria-live="polite"></p>
       </form>
     </div>
-    <div class="footer__bottom"><span>${t.footer.copyright}</span><span>${t.footer.tagline}</span></div>
+    <div class="footer__bottom"><span>${t.footer.copyright}</span>${consentLabel ? `<button class="footer__cookies" type="button" data-consent-open>${consentLabel}</button>` : ''}<span>${t.footer.tagline}</span></div>
   </div>
 </footer>`;
