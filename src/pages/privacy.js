@@ -31,6 +31,20 @@ const text = {
     ],
     back: '← Back to home',
   },
+  pl: {
+    title: 'Polityka prywatności',
+    updated: 'Aktualizacja: 9 listopada 2026',
+    sections: [
+      ['Kto przetwarza dane', `Administratorem danych osobowych jest Yulia Kovalevskaya, Polska. W sprawach dotyczących danych napisz na <a href="mailto:${links.email}">${links.email}</a>.`],
+      ['Jakie dane', 'Tylko adres e-mail wpisany w formularzu w stopce oraz adres strony, z której wysłano formularz. Nie ma trackerów reklamowych, a pliki cookies nie są ustawiane bez Twojej zgody. Statystyki odwiedzin zbiera Vercel Web Analytics: anonimowo liczy odsłony, kraj, typ urządzenia i przeglądarkę, nie ustawia cookies i nie zapisuje adresu IP, więc na podstawie tych danych nie da się Ciebie zidentyfikować.'],
+      ['Microsoft Clarity — tylko za Twoją zgodą', 'Jeśli klikniesz „Zezwól” w banerze, Microsoft Clarity zapisze, jak korzystasz ze strony: kliknięcia, ruch kursora, przewijanie, otwarte strony, typ urządzenia, przeglądarkę i przybliżony kraj. Pola formularzy są maskowane, więc Clarity nie widzi Twojego imienia ani e-maila. Ustawia pliki cookies _clck (do 1 roku) i _clsk (1 dzień); nagrania sesji są przechowywane 30 dni. Dane przetwarza Microsoft i mogą być przekazywane do USA. Podstawą prawną jest Twoja zgoda (art. 6 ust. 1 lit. a RODO). Możesz ją wycofać w każdej chwili przyciskiem „Ustawienia cookies” w stopce.'],
+      ['Cel i podstawa prawna', 'Aby odpowiedzieć i omówić współpracę. Podstawą prawną jest Twoja zgoda (art. 6 ust. 1 lit. a RODO), której udzielasz, klikając „Wyślij”. Możesz ją wycofać w każdej chwili, pisząc na powyższy adres; nie wpływa to na zgodność z prawem przetwarzania przed wycofaniem.'],
+      ['Kto jeszcze otrzymuje dane', 'Wiadomość z Twoim adresem dostarcza usługa FormSubmit (formsubmit.co), a przechowywana jest w Gmailu (Google). Strona jest hostowana na Vercel i GitHub Pages, a czcionki ładowane są z Google Fonts i Fontshare — te usługi widzą Twój adres IP, jak przy każdej stronie. Dane nie są sprzedawane ani wykorzystywane do reklamy.'],
+      ['Jak długo są przechowywane', 'Przez czas korespondencji i nie dłużej niż 12 miesięcy od ostatniej wiadomości, jeśli nie rozpoczniemy współpracy. Wcześniej na Twoją prośbę.'],
+      ['Twoje prawa', 'Możesz żądać dostępu do danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia, a także sprzeciwić się przetwarzaniu. Jeśli uważasz, że dane są przetwarzane niezgodnie z prawem, możesz złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (uodo.gov.pl).'],
+    ],
+    back: '← Strona główna',
+  },
 };
 
 export const privacyTitle = (lang) => text[lang].title;

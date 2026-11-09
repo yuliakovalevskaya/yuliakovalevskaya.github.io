@@ -6,6 +6,7 @@ const NB = ' ';
 const RU_SHORT = 'а|в|во|и|к|ко|о|об|обо|с|со|у|я|не|ни|но|на|по|за|из|изо|от|до|для|без|при|про|над|под|вне|что|как|или|ли|да|' +
   'он|она|оно|они|мы|вы|ты|им|их|ее|её|его|ей|ему|мне|моя|мой|мои|наш|ваш|это|эта|эти|эту|все|всё|вся|где|кто|так|уже|чем|тем|нет|' +
   'два|две|три|раз';
+const PL_SHORT = 'a|i|o|u|w|z|we|ze|do|na|od|po|za|ku|nie|to|ale|lub|oraz|jak|dla|bez|przy|nad|pod';
 const EN_SHORT = 'a|an|the|I|of|to|in|on|at|by|for|and|or|as|if|vs\\.?|with|from|into|per|is|it|my|we|no|so|be|not|but|its|our|your';
 
 // Слово привязывается к следующему. Проход повторяем для цепочек («и в», «of the»):
@@ -21,12 +22,16 @@ const ruRules = (t) => bind(t, RU_SHORT, '«„')
   .replace(/ (—|–)(?= )/g, `${NB}$1`)
   .replace(/(№|§) (?=\d)/g, `$1${NB}`);
 
+const plRules = (t) => bind(t, PL_SHORT, '„')
+  .replace(/(\d) (?=[^\s\d–—-])/g, `$1${NB}`)
+  .replace(/ (—|–)(?= )/g, `${NB}$1`);
+
 const enRules = (t) => bind(t, EN_SHORT, '“')
   .replace(/(\d) (?=[^\s\d–—-])/g, `$1${NB}`)
   .replace(/ (—|–)(?= )/g, `${NB}$1`);
 
 export function typograph(html, lang = 'ru') {
-  const rules = lang === 'ru' ? ruRules : enRules;
+  const rules = { ru: ruRules, pl: plRules }[lang] || enRules;
   let skip = 0;
   return html.split(/(<[^>]+>)/).map((part) => {
     if (part.startsWith('<')) {

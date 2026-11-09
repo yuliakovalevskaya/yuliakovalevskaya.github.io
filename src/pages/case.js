@@ -285,7 +285,7 @@ const detail = (t, c) => {
   IMG = `/img/cases/${c.slug}/${assets.dir}`;
   DIMS = loadDims(assets.dims);
   const cta = d.cta || { title: t.casePage.ctaTitle, text: t.casePage.ctaText, button: t.casePage.cta };
-  LANG = t.lang;
+  LANG = t.lang === 'pl' ? 'en' : t.lang; // для польской версии своих картинок нет
   const h = d.hero;
   return `
 <div class="tm">

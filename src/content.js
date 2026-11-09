@@ -1,4 +1,4 @@
-// Все тексты сайта на двух языках. Правьте здесь — вёрстка подтянет изменения.
+// Тексты сайта на русском и английском (польский — в content.pl.js). Правьте здесь — вёрстка подтянет изменения.
 
 export const links = {
   email: 'yuliakovalevsk@gmail.com',
@@ -7,7 +7,7 @@ export const links = {
   // Номер не пишем в разметке открытым текстом: ссылку на чат собирает main.js при клике (см. [data-wa])
   whatsappDigits: '61859717584',
   behance: 'https://www.behance.net/yuliakovalevskaya',
-  cv: 'https://drive.google.com/file/d/1ycUaZG1SQCZ8jgk5MKYEDwTqRTK4kB-j/view?usp=sharing',
+  cv: '/CV_Yulia_Kovalevskaya_Product_Designer.pdf',
 };
 
 import { ru as tmRu, en as tmEn } from './cases/timemanager.js';
@@ -64,7 +64,7 @@ export const ru = {
         title: 'Spending Coach — AI объясняет, куда ушли деньги',
         text: 'AI‑помощник для банковского приложения: он находит, какая категория выросла в тратах, объясняет причину и предлагает план экономии. От проблемы и user flow до экранов, состояний и UI kit.',
         tags: tags('Explainable AI UX', 'Product thinking', 'Mobile', 'Design system', 'Самостоятельно'),
-        metric: '4 дня → готовый продукт', metricLabel: 'AI анализирует, человек решает',
+        metric: '4 дня → концепт', metricLabel: 'AI анализирует, человек решает',
         detail: scRu,
       },
       {
@@ -154,7 +154,7 @@ export const ru = {
         text: 'Юлия, спасибо за вашу работу! Наша команда очень благодарна за высокое качество, работа сделана так, как мы хотели! Мы ценим, что вы всегда на связи, даже в выходные. Спасибо за лояльность к нашим правкам. Мы будем рады продолжить сотрудничество, так что остаемся на связи 🤝.' },
       { tag: 'FoodTech · B2B · Trade', avatar: '/img/avatar-4.webp', name: 'Александр Кристиченко', role: 'Корпоративный сайт Alphafusion и Silkroad4food',
         text: 'Юлия — талантливый UX/UI-дизайнер, с которой приятно работать. У нее отличное чувство стиля и способность понимать потребности клиента, превращая идеи в удобные решения. Она ответственно подходит к работе, всегда адаптируется к изменениям и выполняет задачи в срок. Общение с ней легкое и постоянное, что делает сотрудничество комфортным. Рекомендую Юлию всем, кто ищет профессионала.' },
-      { tag: 'Branding · Social · Media', avatar: '/img/avatar-5.webp', name: 'Ангелина Новикова', role: 'Фирменный стиль блога',
+      { hidden: true, tag: 'Branding · Social · Media', avatar: '/img/avatar-5.webp', name: 'Ангелина Новикова', role: 'Фирменный стиль блога',
         text: 'Наняла Юлию для создания обложек и логотипа для личного новостного блога в Инстаграмме. Все заявленные требования были выполнены отлично. Работать с данным профессионалом было легко и комфортно. Юлия интересовалась каждый раз итогом работы и доделывала все пожелания до мельчайших деталей. Также дала все рекомендации для дальнейшей самостоятельной работы с финальными шаблонами.' },
       { tag: 'Corporate · B2B · Web', avatar: '/img/avatar-6.webp', name: 'Денис Ракецкий', role: 'Корпоративный сайт Beetrail',
         text: 'Юлия, спасибо за ваш вклад в наш проект! Работать с тобой как с UI/UX-дизайнером было настоящим удовольствием. Ты всегда подходила к задачам ответственно, и результат получился стильным и удобным. Особенно ценю твою доступность и готовность находить решения в сложных ситуациях. Давайте продолжать наше сотрудничество и двигаться вперед к новым проектам! 😊' },
@@ -166,6 +166,8 @@ export const ru = {
     text: ['Работаете над проектом, который нужно улучшить и превратить в удачный пользовательский опыт?', 'Открыта к full-time позициям с возможностью работать в Польше, удалёнка и офис — давайте обсудим.'],
     write: 'Написать мне',
     cv: 'Смотреть CV',
+    copy: 'Скопировать почту',
+    copied: 'Скопировано',
   },
   casePage: {
     back: 'Все кейсы',
@@ -260,7 +262,7 @@ export const en = {
       title: 'Spending Coach — AI explains where the money went',
       text: 'An AI assistant for a banking app: it finds which spending category grew, explains why and suggests a savings plan. From the problem and user flow to screens, states and a UI kit.',
       tags: ['Explainable AI UX', 'Product thinking', 'Mobile', 'Design system', 'Solo'],
-      metric: '4 days → ready product', metricLabel: 'AI analyses, the user decides',
+      metric: '4 days → concept', metricLabel: 'AI analyses, the user decides',
       detail: scEn,
     })).map((c) => (c.slug !== 'timemanager' ? c : {
       ...c,
@@ -333,7 +335,7 @@ export const en = {
         text: 'Yulia, thank you for your work! Our team is very grateful for the high quality — it was done exactly the way we wanted! We appreciate that you are always available, even on weekends. Thank you for being so accommodating with our edits. We’d be glad to continue working together, so let’s stay in touch 🤝.' },
       { tag: 'FoodTech · B2B · Trade', avatar: '/img/avatar-4.webp', name: 'Alexander Kristichenko', role: 'Alphafusion & Silkroad4food websites',
         text: 'Yulia is a talented UX/UI designer who is a pleasure to work with. She has a great sense of style and the ability to understand the client’s needs, turning ideas into convenient solutions. She is responsible, always adapts to changes and delivers on time. Communication with her is easy and constant, which makes the collaboration comfortable. I recommend Yulia to anyone looking for a professional.' },
-      { tag: 'Branding · Social · Media', avatar: '/img/avatar-5.webp', name: 'Angelina Novikova', role: 'Blog brand identity',
+      { hidden: true, tag: 'Branding · Social · Media', avatar: '/img/avatar-5.webp', name: 'Angelina Novikova', role: 'Blog brand identity',
         text: 'I hired Yulia to create covers and a logo for my personal news blog on Instagram. All requirements were met perfectly. Working with her was easy and comfortable. Yulia checked in on the result every time and polished every request down to the smallest detail. She also gave me recommendations for working with the final templates on my own.' },
       { tag: 'Corporate · B2B · Web', avatar: '/img/avatar-6.webp', name: 'Denis Raketsky', role: 'Beetrail corporate website',
         text: 'Yulia, thank you for your contribution to our project! Working with you as a UI/UX designer was a real pleasure. You always approached tasks responsibly, and the result turned out stylish and convenient. I especially value your availability and willingness to find solutions in difficult situations. Let’s keep working together and move forward to new projects! 😊' },
@@ -345,6 +347,8 @@ export const en = {
     text: ['Working on a project that needs to be improved and turned into a great user experience?', 'I’m open to full-time positions in Poland — remote or on-site. Let’s talk.'],
     write: 'Message me',
     cv: 'View CV',
+    copy: 'Copy email',
+    copied: 'Copied',
   },
   casePage: {
     back: 'All cases',

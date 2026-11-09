@@ -6,8 +6,11 @@ export const tag = (t) => `<span class="tag">${esc(t)}</span>`;
 export const dotBadge = (t) => `<span class="badge"><i class="badge__dot" aria-hidden="true"></i>${esc(t)}</span>`;
 export const sep = '<i class="sep" aria-hidden="true"></i>';
 
-// Маршруты: RU без префикса, EN под /en/
-export const langPrefix = (lang) => (lang === 'ru' ? '' : `/${lang}`);
+// Маршруты: у каждого языка свой префикс (/en/, /ru/, /pl/), корень сайта ведёт на /en/ (см. build.js и vercel.json)
+export const LANGS = ['ru', 'en', 'pl'];
+// Пока false, польская версия открывается только по прямой ссылке: её нет в переключателе, поиске и hreflang
+export const PL_PUBLIC = false;
+export const langPrefix = (lang) => `/${lang}`;
 export const homePath = (lang) => `${langPrefix(lang)}/`;
 export const casePath = (lang, slug) => `${langPrefix(lang)}/cases/${slug}/`;
 export const privacyPath = (lang) => `${langPrefix(lang)}/privacy/`;

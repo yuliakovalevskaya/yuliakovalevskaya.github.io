@@ -1,5 +1,5 @@
 // Страница 404 (макет в Figma: «404 — Desktop / Mobile» в разделе Main - Desktop and Mobile).
-// GitHub Pages отдаёт /404.html на любой несуществующий адрес; для адресов /en/… она подменяется на /en/404/.
+// Хостинг отдаёт /404.html (английскую) на любой несуществующий адрес; для адресов /ru/… и /pl/… она подменяется на /ru/404/ и /pl/404/.
 import { homePath } from '../lib/html.js';
 import { figmaCursor } from './home.js';
 
@@ -15,6 +15,12 @@ const text = {
     lead: 'The link may be outdated or there’s a typo in the address. The case studies are still here — take a look.',
     home: 'Back to home',
     cases: 'View cases',
+  },
+  pl: {
+    title: 'Nie znaleziono strony',
+    lead: 'Link mógł się zdezaktualizować lub w adresie jest literówka. Case studies wciąż tu są — zajrzyj.',
+    home: 'Strona główna',
+    cases: 'Zobacz case’y',
   },
 };
 
@@ -42,12 +48,13 @@ export const notFoundBody = (t) => {
 </section>`;
 };
 
-// Для /en/… подгружаем английскую версию страницы, не меняя адрес
+// Для /ru/… и /pl/… подгружаем страницу на нужном языке, не меняя адрес
 export const notFoundScript = `<script>
-  if (/^\\/en(\\/|$)/.test(location.pathname)) {
-    fetch('/en/404/').then((r) => r.text()).then((h) => {
+  const m = location.pathname.match(/^\\/(ru|pl)(\\/|$)/);
+  if (m) {
+    fetch('/' + m[1] + '/404/').then((r) => r.text()).then((h) => {
       const d = new DOMParser().parseFromString(h, 'text/html');
-      document.documentElement.lang = 'en';
+      document.documentElement.lang = m[1];
       document.title = d.title;
       document.body.replaceWith(document.adoptNode(d.body));
       window.__initSite && window.__initSite();

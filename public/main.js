@@ -74,6 +74,37 @@ window.__initSite = () => {
     });
   }
 
+  // Копирование почты: иконка меняется на галочку на 2 секунды
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    const label = btn.getAttribute('aria-label');
+    const status = btn.parentElement.querySelector('[role="status"]');
+    let timer = 0;
+    const fallback = (text) => {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      const ok = document.execCommand('copy');
+      ta.remove();
+      if (!ok) throw new Error('copy failed');
+    };
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(btn.dataset.copy);
+      } catch {
+        try { fallback(btn.dataset.copy); } catch { return; }
+      }
+      btn.classList.add('is-copied');
+      btn.setAttribute('aria-label', btn.dataset.copied); btn.title = btn.dataset.copied;
+      status.textContent = btn.dataset.copied;
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        btn.classList.remove('is-copied');
+        btn.setAttribute('aria-label', label); btn.title = label;
+        status.textContent = '';
+      }, 2000);
+    });
+  });
+
   // WhatsApp: номер хранится в разметке задом наперёд и подставляется в ссылку только в момент клика,
   // чтобы его не было видно при наведении и не собирали боты
   document.querySelectorAll('a[data-wa]').forEach((a) => {

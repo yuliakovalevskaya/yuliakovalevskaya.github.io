@@ -1,6 +1,6 @@
 // Шапка и подвал — общие для всех страниц
 import { links } from '../content.js';
-import { esc, homePath, privacyPath } from '../lib/html.js';
+import { esc, homePath, privacyPath, PL_PUBLIC } from '../lib/html.js';
 
 // Ссылка «написать письмо»: на телефоне mailto сразу открывает новое письмо в почтовом приложении,
 // на компьютере main.js открывает окно нового письма Gmail (см. [data-mail]).
@@ -13,15 +13,17 @@ export const logo = (href, variant = 'blue') => `
     <span class="logo__text"><span>Yulia</span><span>Kovalevskaya</span></span>
   </a>`;
 
-// ctx: { t, isHome, altPath } — altPath: та же страница на другом языке
-const langSwitch = (t, altPath) => {
+// ctx: { t, isHome, alt } — alt: адреса этой же страницы на всех языках
+const LANG_LABEL = { ru: 'Ru', en: 'En', pl: 'Pl' };
+const langSwitch = (t, alt) => {
   const opt = (l) => l === t.lang
-    ? `<a class="lang__opt is-active" href="#top" hreflang="${l}" aria-current="true">${l === 'ru' ? 'Ru' : 'En'}</a>`
-    : `<a class="lang__opt" href="${altPath}" hreflang="${l}">${l === 'ru' ? 'Ru' : 'En'}</a>`;
-  return `<div class="lang" role="group" aria-label="Language">${opt("ru")}${opt("en")}</div>`;
+    ? `<a class="lang__opt is-active" href="#top" hreflang="${l}" aria-current="true">${LANG_LABEL[l]}</a>`
+    : `<a class="lang__opt" href="${alt[l]}" hreflang="${l}">${LANG_LABEL[l]}</a>`;
+  const shown = PL_PUBLIC || t.lang === 'pl' ? ['ru', 'en', 'pl'] : ['ru', 'en'];
+  return `<div class="lang" role="group" aria-label="Language">${shown.map(opt).join('')}</div>`;
 };
 
-export const header = ({ t, isHome, altPath }) => {
+export const header = ({ t, isHome, alt }) => {
   const a = (id) => (isHome ? `#${id}` : `${homePath(t.lang)}#${id}`);
   const nav = `
       <a href="${a('portfolio')}">${t.nav.portfolio}</a>
@@ -34,7 +36,7 @@ export const header = ({ t, isHome, altPath }) => {
     ${logo(isHome ? '#top' : homePath(t.lang))}
     <nav class="header__nav" aria-label="Main">${nav}</nav>
     <div class="header__actions">
-      ${langSwitch(t, altPath)}
+      ${langSwitch(t, alt)}
       <a class="btn btn--secondary btn--sm" href="${links.cv}" target="_blank" rel="noopener">${t.nav.cv}</a>
       <a class="btn btn--primary btn--sm" href="${a('contacts')}">${t.nav.contact}</a>
     </div>
@@ -49,7 +51,7 @@ export const header = ({ t, isHome, altPath }) => {
   <div class="mobile-menu" id="mobile-menu" hidden>
     <nav aria-label="Mobile">${nav}</nav>
     <div class="mobile-menu__actions">
-      ${langSwitch(t, altPath)}
+      ${langSwitch(t, alt)}
       <a class="btn btn--secondary" href="${links.cv}" target="_blank" rel="noopener">${t.nav.cv}</a>
     </div>
   </div>

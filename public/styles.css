@@ -1008,3 +1008,18 @@ body.menu-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
   body.consent-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
 }
 @media (prefers-reduced-motion: reduce) { .consent { transform: none; transition: opacity .01s; } }
+
+/* ==== Копирование почты в карточке контактов ==== */
+.chip-wrap { position: relative; display: inline-flex; max-width: 100%; }
+.chip-wrap .chip { transition: padding-right .15s ease, border-color .2s, box-shadow .2s; }
+.chip-wrap:hover .chip, .chip-wrap:focus-within .chip { padding-right: 44px; border-color: var(--blue-hover); box-shadow: 0 4px 14px rgba(23, 117, 210, 0.08); }
+.chip-copy { position: absolute; top: 50%; right: 8px; width: 28px; height: 28px; margin-top: -14px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--grey-600); opacity: 0; pointer-events: none; transition: opacity .15s ease, color .2s, background-color .2s; }
+.chip-wrap:hover .chip-copy, .chip-copy:focus-visible, .chip-copy.is-copied { opacity: 1; pointer-events: auto; }
+.chip-copy:hover { color: var(--blue); background: var(--blue-6); }
+.chip-copy.is-copied { color: var(--green); background: none; }
+.chip-copy__ok, .chip-copy.is-copied .chip-copy__icon { display: none; }
+.chip-copy.is-copied .chip-copy__ok { display: block; }
+@media (hover: none) {
+  .chip-wrap .chip { padding-right: 44px; }
+  .chip-copy { opacity: 1; pointer-events: auto; }
+}
