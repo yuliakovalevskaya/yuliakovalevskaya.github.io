@@ -49,12 +49,12 @@
       "permanent": false
     },
     {
-      "source": "/cases/:slug",
+      "source": "/cases/:slug/",
       "destination": "/ru/cases/:slug/",
       "permanent": true
     },
     {
-      "source": "/privacy",
+      "source": "/privacy/",
       "destination": "/ru/privacy/",
       "permanent": true
     }
