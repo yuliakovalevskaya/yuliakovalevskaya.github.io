@@ -334,8 +334,16 @@ button { font: inherit; cursor: pointer; }
 .footer__links div { display: flex; gap: 12px; font-size: 14px; line-height: 1.4; letter-spacing: 0.42px; }
 .footer__links dt { color: var(--grey-300); }
 .footer__links dd a { color: var(--grey-200); font-weight: 400; text-decoration: underline; text-decoration-thickness: from-font; text-underline-offset: from-font; text-decoration-color: rgba(242, 242, 242, 0.55); transition: color .2s, text-decoration-color .2s; }
-.footer__links dd a:hover { color: var(--white); text-decoration-color: var(--white); }
+.footer__cases a { color: var(--grey-200); font-size: 14px; line-height: 1.4; letter-spacing: 0.42px; text-decoration: underline; text-decoration-thickness: from-font; text-underline-offset: from-font; text-decoration-color: rgba(242, 242, 242, 0.55); transition: color .2s, text-decoration-color .2s; }
+.footer__cases a:hover, .footer__links dd a:hover { color: var(--white); text-decoration-color: var(--white); }
 .footer__row > .logo { flex: none; align-self: flex-start; }
+.footer__col { display: flex; flex-direction: column; gap: 10px; }
+.footer__col .footer__links { gap: 10px; }
+.footer__title { font-size: 14px; font-weight: 600; line-height: 22px; letter-spacing: 0.28px; color: var(--white); }
+.footer__cases { display: flex; flex-direction: column; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.footer__tagline { display: inline-flex; align-items: center; gap: 6px; }
+.footer__tagline svg { flex: none; opacity: .7; }
+.status-lines { display: flex; flex-direction: column; gap: 8px; }
 .footer__form { width: auto; min-width: 358px; flex: none; display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .footer__form label { white-space: nowrap; font-size: 14px; font-weight: 600; line-height: 22px; letter-spacing: 0.28px; text-transform: uppercase; opacity: .8; }
 .footer__form input { width: 100%; padding: 6px 12px; border-radius: 12px; border: 1px solid var(--white-60); background: rgba(255, 255, 255, 0.15);
@@ -1011,10 +1019,11 @@ body.menu-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
 
 /* ==== Копирование почты в карточке контактов ==== */
 .chip-wrap { position: relative; display: inline-flex; max-width: 100%; }
-.chip-wrap .chip { transition: padding-right .15s ease, border-color .2s, box-shadow .2s; }
-.chip-wrap:hover .chip, .chip-wrap:focus-within .chip { padding-right: 44px; border-color: var(--blue-hover); box-shadow: 0 4px 14px rgba(23, 117, 210, 0.08); }
-.chip-copy { position: absolute; top: 50%; right: 8px; width: 28px; height: 28px; margin-top: -14px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--grey-600); opacity: 0; pointer-events: none; transition: opacity .15s ease, color .2s, background-color .2s; }
-.chip-wrap:hover .chip-copy, .chip-copy:focus-visible, .chip-copy.is-copied { opacity: 1; pointer-events: auto; }
+.chip-wrap .chip { transition: padding-right .2s ease, border-color .2s, box-shadow .2s; }
+.chip-wrap:hover .chip, .chip-wrap:has(:focus-visible) .chip { padding-right: 44px; border-color: var(--blue-hover); box-shadow: 0 4px 14px rgba(23, 117, 210, 0.08); }
+.chip-copy { position: absolute; top: 50%; right: 8px; width: 28px; height: 28px; margin-top: -14px; display: grid; place-items: center; padding: 0; border: 0; border-radius: 8px; background: none; color: var(--grey-600); opacity: 0; transform: scale(.85); pointer-events: none; transition: opacity .15s ease, transform .15s ease, color .2s, background-color .2s; }
+.chip-wrap:hover .chip-copy, .chip-copy:focus-visible { transform: none; }
+.chip-wrap:hover .chip-copy, .chip-copy:focus-visible { opacity: 1; pointer-events: auto; }
 .chip-copy:hover { color: var(--blue); background: var(--blue-6); }
 .chip-copy.is-copied { color: var(--green); background: none; }
 .chip-copy__ok, .chip-copy.is-copied .chip-copy__icon { display: none; }

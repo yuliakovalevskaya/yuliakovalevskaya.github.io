@@ -27,7 +27,7 @@ export const pl = {
     badges: ['Web, Mobile & Platforms', 'iOS / Android', 'B2C / B2B / SaaS', 'Design Systems', 'AI-first workflow'],
     note: 'Najbardziej lubię projekty, w których trzeba najpierw zrozumieć produkt, znaleźć i rozwiązać problem, a dopiero potem projektować.',
     buttons: { portfolio: 'Portfolio', cv: 'Zobacz CV', write: 'Napisz' },
-    status: { location: 'Polska', open: 'Open to work', exp: '4+ lata doświadczenia', projects: '20+ projektów', stacks: '5+ stacków' },
+    status: { location: 'Polska', open: 'Open to work', start: 'Start: od zaraz', format: 'Zdalnie / hybrydowo / stacjonarnie', exp: '4+ lata doświadczenia', projects: '20+ projektów', stacks: '5+ stacków' },
     photoAlt: 'Yulia Kovalevskaya',
   },
   values: {
@@ -47,20 +47,20 @@ export const pl = {
     cases: [
       {
         slug: 'spending-coach', image: 'case-1-en',
-        meta: '01 · B2C · FinTech · Mobile · AI',
+        meta: '01 · B2C · FinTech · AI · Koncept · 4 dni · Samodzielnie',
         title: 'Spending Coach — AI wyjaśnia, na co poszły pieniądze',
         text: 'Asystent AI do aplikacji bankowej: znajduje kategorię, w której wzrosły wydatki, wyjaśnia przyczynę i proponuje plan oszczędzania. Od problemu i user flow po ekrany, stany i UI kit.',
-        tags: ['Explainable AI UX', 'Product thinking', 'Mobile', 'Design system', 'Samodzielnie'],
-        metric: '4 dni → gotowy koncept', metricLabel: 'AI analizuje, człowiek decyduje',
+        tags: ['Explainable AI UX', 'Product thinking', 'Mobile', 'Design system'],
+        metric: '+40% wydatków → jeden plan', metricLabel: 'AI znajduje skok, wyjaśnia przyczynę, decyduje człowiek',
         detail: scPl,
       },
       {
         slug: 'timemanager', image: 'case-2-en',
-        meta: '02 · B2B · SaaS · Web',
+        meta: '02 · B2B · SaaS · Web · Koncept · ≈ 1 tydzień · Samodzielnie',
         title: 'TimeManager — planowanie spotkań',
         text: 'Platforma B2B, na której spotkanie umawia się w 3 krokach zamiast 5: dostępność wszystkich uczestników widać od razu, bez wymiany maili. Od CJM i user flow po UI kit ze wszystkimi stanami i edge case’ami.',
-        tags: ['Samodzielnie', 'Web', 'UX Research', 'User Flow', 'Ant Design'],
-        metric: '5 → 3 kroki (−40%)', metricLabel: 'w procesie tworzenia spotkania',
+        tags: ['Web', 'UX Research', 'User Flow', 'Ant Design'],
+        metric: '≈3 godziny oszczędności miesięcznie', metricLabel: 'dostępność wszystkich gości w jednym formularzu',
         detail: tmPl,
       },
       {
@@ -174,7 +174,9 @@ export const pl = {
     mailSubject: 'Nowy kontakt ze strony portfolio',
     consent: 'Klikając „Wyślij”, zgadzasz się na przetwarzanie swojego adresu e-mail.',
     privacy: 'Polityka prywatności',
-    copyright: '© Yulia Kovalevskaya 2026',
+    contactsTitle: 'Kontakt',
+    casesTitle: 'Case studies',
+    copyright: '© Yulia Kovalevskaya, paź. 2026',
     tagline: 'Zrobione z miłością do szczegółów',
   },
 };

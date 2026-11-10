@@ -18,13 +18,19 @@ const hero = (t) => `
         <a class="btn btn--secondary btn--lg" href="#contacts">${t.hero.buttons.write}</a>
       </div>
       <hr class="divider" />
-      <p class="status">
-        <span>${t.hero.status.location}</span>${sep}
-        <span class="status__open">${t.hero.status.open}</span>${sep}
-        <span>${t.hero.status.exp}</span>${sep}
-        <span>${t.hero.status.projects}</span>${sep}
-        <span>${t.hero.status.stacks}</span>
-      </p>
+      <div class="status-lines">
+        <p class="status">
+          <span>${t.hero.status.location}</span>${sep}
+          <span class="status__open">${t.hero.status.open}</span>${sep}
+          <span>${t.hero.status.start}</span>${sep}
+          <span>${t.hero.status.format}</span>
+        </p>
+        <p class="status">
+          <span>${t.hero.status.exp}</span>${sep}
+          <span>${t.hero.status.projects}</span>${sep}
+          <span>${t.hero.status.stacks}</span>
+        </p>
+      </div>
     </div>
     <div class="hero__photo">
       <img src="/img/hero-520.webp" srcset="/img/hero-520.webp 1x, /img/hero-1040.webp 2x" width="520" height="472" alt="${esc(t.hero.photoAlt)}" fetchpriority="high" />

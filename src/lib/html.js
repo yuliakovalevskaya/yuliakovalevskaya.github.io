@@ -8,8 +8,8 @@ export const sep = '<i class="sep" aria-hidden="true"></i>';
 
 // Маршруты: у каждого языка свой префикс (/en/, /ru/, /pl/), корень сайта ведёт на /en/ (см. build.js и vercel.json)
 export const LANGS = ['ru', 'en', 'pl'];
-// Пока false, польская версия открывается только по прямой ссылке: её нет в переключателе, поиске и hreflang
-export const PL_PUBLIC = false;
+// false — польская версия открывается только по прямой ссылке: её нет в переключателе, поиске и hreflang
+export const PL_PUBLIC = true;
 export const langPrefix = (lang) => `/${lang}`;
 export const homePath = (lang) => `${langPrefix(lang)}/`;
 export const casePath = (lang, slug) => `${langPrefix(lang)}/cases/${slug}/`;
