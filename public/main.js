@@ -42,10 +42,13 @@ window.__initSite = () => {
   const form = document.querySelector('.footer__form');
   // Подсказки браузера о незаполненной или неверной почте — на языке страницы, а не браузера
   const emailInput = form?.querySelector('input[type=email]');
-  emailInput?.addEventListener('invalid', () => {
-    emailInput.setCustomValidity(emailInput.validity.valueMissing ? form.dataset.required : form.dataset.invalid);
-  });
-  emailInput?.addEventListener('input', () => emailInput.setCustomValidity(''));
+  // Текст выставляем заранее, при каждом вводе: в обработчике invalid браузер уже успевает показать свой
+  const checkEmail = () => {
+    emailInput.setCustomValidity('');
+    if (emailInput.validity.valueMissing) emailInput.setCustomValidity(form.dataset.required);
+    else if (!emailInput.validity.valid) emailInput.setCustomValidity(form.dataset.invalid);
+  };
+  if (emailInput) { emailInput.addEventListener('input', checkEmail); checkEmail(); }
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = form.email.value.trim();
