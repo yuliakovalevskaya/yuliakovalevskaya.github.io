@@ -181,6 +181,8 @@ export const ru = {
   footer: {
     leave: 'Можете оставить почту — я напишу первой :)',
     placeholder: 'Email',
+    required: 'Введите вашу почту.',
+    invalid: 'Проверьте адрес почты, например name@example.com.',
     send: 'Отправить',
     sent: 'Спасибо! Я получила вашу почту и скоро напишу',
     error: 'Не получилось отправить. Напишите мне напрямую: yuliakovalevsk@gmail.com',
@@ -364,6 +366,8 @@ export const en = {
   footer: {
     leave: 'Leave your email — I’ll write first :)',
     placeholder: 'Email',
+    required: 'Please enter your email.',
+    invalid: 'Please enter a valid email, e.g. name@example.com.',
     send: 'Send',
     sent: 'Thank you! I’ve got your email and will write soon',
     error: 'Couldn’t send it. Email me directly: yuliakovalevsk@gmail.com',

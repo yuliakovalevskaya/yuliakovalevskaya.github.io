@@ -168,6 +168,8 @@ export const pl = {
   footer: {
     leave: 'Zostaw e-mail — napiszę pierwsza :)',
     placeholder: 'E-mail',
+    required: 'Wpisz swój adres e-mail.',
+    invalid: 'Sprawdź adres e-mail, np. name@example.com.',
     send: 'Wyślij',
     sent: 'Dziękuję! Mam Twój e-mail i wkrótce napiszę',
     error: 'Nie udało się wysłać. Napisz bezpośrednio: yuliakovalevsk@gmail.com',

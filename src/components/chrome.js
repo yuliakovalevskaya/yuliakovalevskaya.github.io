@@ -81,7 +81,7 @@ export const footer = ({ t, consentLabel = '' }) => `
         </ul>
       </nav>
       <form class="footer__form" action="https://formsubmit.co/${links.email}" method="POST" data-endpoint="https://formsubmit.co/ajax/${links.email}"
-        data-subject="${esc(t.footer.mailSubject)}" data-sent="${esc(t.footer.sent)}" data-error="${esc(t.footer.error)}">
+        data-subject="${esc(t.footer.mailSubject)}" data-sent="${esc(t.footer.sent)}" data-required="${esc(t.footer.required)}" data-invalid="${esc(t.footer.invalid)}" data-error="${esc(t.footer.error)}">
         <label for="lead-email">${t.footer.leave}</label>
         <input id="lead-email" type="email" name="email" required placeholder="${t.footer.placeholder}" autocomplete="email" />
         <input class="visually-hidden" type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" />

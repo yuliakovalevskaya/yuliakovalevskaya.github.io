@@ -40,6 +40,12 @@ window.__initSite = () => {
 
   // Форма в футере: почта посетителя уходит письмом Юлии через FormSubmit (без своего бэкенда)
   const form = document.querySelector('.footer__form');
+  // Подсказки браузера о незаполненной или неверной почте — на языке страницы, а не браузера
+  const emailInput = form?.querySelector('input[type=email]');
+  emailInput?.addEventListener('invalid', () => {
+    emailInput.setCustomValidity(emailInput.validity.valueMissing ? form.dataset.required : form.dataset.invalid);
+  });
+  emailInput?.addEventListener('input', () => emailInput.setCustomValidity(''));
   form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = form.email.value.trim();
