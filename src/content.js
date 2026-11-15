@@ -163,7 +163,7 @@ export const ru = {
   contacts: {
     title: 'Контакты',
     heading: 'Ищете Product или UX/UI дизайнера?',
-    text: ['Работаете над проектом, который нужно улучшить и превратить в удачный пользовательский опыт?', 'Открыта к full-time позициям с возможностью работать в Польше, удалёнка и офис — давайте обсудим.'],
+    text: ['Давайте поговорим. Проектирую B2B и B2C продукты — от исследования до передачи в разработку.', 'Ищу full-time позицию в Польше и могу выйти сразу.'],
     write: 'Написать мне',
     cv: 'Смотреть CV',
     copy: 'Скопировать почту',
@@ -346,7 +346,7 @@ export const en = {
   contacts: {
     title: 'Contacts',
     heading: 'Looking for a Product or UX/UI Designer?',
-    text: ['Working on a project that needs to be improved and turned into a great user experience?', 'I’m open to full-time positions in Poland — remote or on-site. Let’s talk.'],
+    text: ['Let’s talk. I design B2B and B2C products from research to dev hand-off.', 'I’m looking for a full-time role in Poland and I can start ASAP.'],
     write: 'Message me',
     cv: 'View CV',
     copy: 'Copy email',

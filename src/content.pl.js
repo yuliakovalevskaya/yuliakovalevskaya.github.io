@@ -150,7 +150,7 @@ export const pl = {
   contacts: {
     title: 'Kontakt',
     heading: 'Szukasz Product lub UX/UI Designera?',
-    text: ['Pracujesz nad projektem, który trzeba ulepszyć i zamienić w dobre doświadczenie użytkownika?', 'Jestem otwarta na oferty full-time w Polsce — zdalnie lub stacjonarnie. Porozmawiajmy.'],
+    text: ['Porozmawiajmy. Projektuję produkty B2B i B2C — od badań po przekazanie do developmentu.', 'Szukam pracy full-time w Polsce i mogę zacząć od zaraz.'],
     write: 'Napisz do mnie',
     cv: 'Zobacz CV',
     copy: 'Skopiuj e-mail',
