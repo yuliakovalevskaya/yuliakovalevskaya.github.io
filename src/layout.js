@@ -20,6 +20,15 @@ const ANALYTICS = `
       history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
       alert(off ? 'Your visits are no longer counted in this browser.' : 'Your visits are counted again in this browser.');
     })();
+    // Встроенный браузер Telegram не передаёт, откуда пришёл человек: дописываем метку в адрес до загрузки счётчиков,
+    // тогда Vercel и Clarity покажут такой визит как utm_source=telegram. Метки из ссылки (канал, чат) не трогаем.
+    (function () {
+      var tg = window.TelegramWebviewProxy || window.TelegramWebview || /Telegram/i.test(navigator.userAgent);
+      var q = new URLSearchParams(location.search);
+      if (!tg || q.has('utm_source')) return;
+      q.set('utm_source', 'telegram'); q.set('utm_medium', 'in-app');
+      history.replaceState(null, '', location.pathname + '?' + q + location.hash);
+    })();
     window.__notrack = (function () { try { return localStorage.getItem('notrack') === '1'; } catch (e) { return false; } })();
     if (!window.__notrack && !/(github\\.io|localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) {
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
