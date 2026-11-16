@@ -9,9 +9,19 @@ const SWITZER = 'https://api.fontshare.com/v2/css?f[]=switzer@500&display=swap';
 
 // Vercel Web Analytics: просмотры, посетители, источники, страны, устройства. Без cookies.
 // Скрипт есть только на хостинге Vercel, поэтому на GitHub Pages и локально он не подключается.
+// Свои визиты не считаем: ссылка с ?notrack выключает Vercel и Clarity в этом браузере, ?track включает обратно.
 const ANALYTICS = `
   <script>
-    if (!/(github\\.io|localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) {
+    (function () {
+      var q = new URLSearchParams(location.search), on = q.has('track'), off = q.has('notrack');
+      if (!on && !off) return;
+      try { off ? localStorage.setItem('notrack', '1') : localStorage.removeItem('notrack'); } catch (e) {}
+      q.delete('track'); q.delete('notrack');
+      history.replaceState(null, '', location.pathname + (q.toString() ? '?' + q : '') + location.hash);
+      alert(off ? 'Your visits are no longer counted in this browser.' : 'Your visits are counted again in this browser.');
+    })();
+    window.__notrack = (function () { try { return localStorage.getItem('notrack') === '1'; } catch (e) { return false; } })();
+    if (!window.__notrack && !/(github\\.io|localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) {
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
       var va = document.createElement('script'); va.defer = true; va.src = '/_vercel/insights/script.js'; document.head.appendChild(va);
     }

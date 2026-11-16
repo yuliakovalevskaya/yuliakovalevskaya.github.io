@@ -338,7 +338,7 @@ window.__initSite();
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
 
   const loadClarity = () => {
-    if (window.clarity || local) return;
+    if (window.clarity || local || window.__notrack) return;
     const id = banner.dataset.clarity;
     window.clarity = function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
     const s = document.createElement('script');
@@ -375,5 +375,5 @@ window.__initSite();
 
   const v = read();
   if (v === 'granted') loadClarity();
-  else if (v === null) setTimeout(() => show(true), 1200);
+  else if (v === null && !window.__notrack) setTimeout(() => show(true), 1200);
 })();
