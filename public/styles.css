@@ -1037,9 +1037,11 @@ body.menu-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
 .chip--go { position: relative; transition: padding-right .2s ease, border-color .2s, box-shadow .2s; }
 .chip--go:hover, .chip--go:focus-visible { padding-right: 44px; }
 .chip__go { position: absolute; top: 50%; right: 8px; width: 28px; height: 28px; margin-top: -14px; display: grid; place-items: center; border-radius: 8px;
-  color: var(--grey-600); opacity: 0; transform: scale(.85); transition: opacity .15s ease, transform .15s ease, color .2s; }
+  color: var(--grey-600); opacity: 0; transform: scale(.85); transition: opacity .15s ease, transform .15s ease, color .2s, background-color .2s; }
 .chip--go:hover .chip__go, .chip--go:focus-visible .chip__go { opacity: 1; transform: none; }
-.chip--go.is-opened .chip__go { color: var(--green); }
+/* Наведение на саму стрелку — синяя на голубом фоне (как у копирования почты); после клика — зелёная без фона */
+.chip--go .chip__go:hover { color: var(--blue); background: var(--blue-6); }
+.chip--go.is-opened .chip__go { color: var(--green); background: none; }
 @media (hover: none) {
   .chip--go { padding-right: 44px; }
   .chip__go { opacity: 1; transform: none; }
