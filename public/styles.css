@@ -1032,3 +1032,15 @@ body.menu-open .to-top { opacity: 0; pointer-events: none; visibility: hidden; }
   .chip-wrap .chip { padding-right: 44px; }
   .chip-copy { opacity: 1; pointer-events: auto; }
 }
+
+/* ==== Ссылки на соцсети в карточке контактов: стрелка ↗ по тому же принципу ==== */
+.chip--go { position: relative; transition: padding-right .2s ease, border-color .2s, box-shadow .2s; }
+.chip--go:hover, .chip--go:focus-visible { padding-right: 44px; }
+.chip__go { position: absolute; top: 50%; right: 8px; width: 28px; height: 28px; margin-top: -14px; display: grid; place-items: center; border-radius: 8px;
+  color: var(--grey-600); opacity: 0; transform: scale(.85); transition: opacity .15s ease, transform .15s ease, color .2s; }
+.chip--go:hover .chip__go, .chip--go:focus-visible .chip__go { opacity: 1; transform: none; }
+.chip--go.is-opened .chip__go { color: var(--green); }
+@media (hover: none) {
+  .chip--go { padding-right: 44px; }
+  .chip__go { opacity: 1; transform: none; }
+}

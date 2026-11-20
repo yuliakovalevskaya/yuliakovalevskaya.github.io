@@ -196,10 +196,16 @@ const testimonials = (t) => `
   </div>
 </section>`;
 
-const contactChip = (icon, label, value, href) => `
-  ${href ? `<a class="chip" href="${href}" ${href.startsWith('http') ? 'target="_blank" rel="noopener"' : 'data-mail'}>` : '<span class="chip">'}
-    <img src="/icons/${icon}.svg" width="20" height="20" alt="" /><span>${label}</span><span class="chip__value">${value}</span>
+// Стрелка ↗ у ссылок на соцсети: появляется серой при наведении, после клика на 2 секунды зелёная (как копирование почты)
+const goIcon = '<span class="chip__go" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M7 17 17 7M8.5 7H17v8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>';
+
+const contactChip = (icon, label, value, href, attrs = '') => {
+  const external = href && href.startsWith('http');
+  return `
+  ${href ? `<a class="chip${external ? ' chip--go' : ''}" href="${href}" ${external ? 'target="_blank" rel="noopener"' : 'data-mail'}${attrs}>` : '<span class="chip">'}
+    <img src="/icons/${icon}.svg" width="20" height="20" alt="" /><span>${label}</span><span class="chip__value">${value}</span>${external ? goIcon : ''}
   ${href ? '</a>' : '</span>'}`;
+};
 
 const contacts = (t) => `
 <section class="contacts section" id="contacts">
@@ -225,9 +231,7 @@ const contacts = (t) => `
         </div>
         ${contactChip('linkedin', 'LinkedIn', 'in/yulia-kovalevskayauxuidesigner/', links.linkedin)}
         ${contactChip('telegram', 'Telegram', '@yuliakovalevs', links.telegram)}
-        <a class="chip" href="https://wa.me/" target="_blank" rel="noopener" data-wa="${links.whatsappDigits}">
-          <img src="/icons/whatsapp.svg" width="20" height="20" alt="" /><span>WhatsApp</span><span class="chip__value">@yuliakovalevs</span>
-        </a>
+        ${contactChip('whatsapp', 'WhatsApp', '@yuliakovalevs', 'https://wa.me/', ` data-wa="${links.whatsappDigits}"`)}
       </div>
     </div>
   </div>

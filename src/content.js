@@ -209,7 +209,7 @@ export const en = {
     testimonials: 'Testimonials',
     contacts: 'Contacts',
     cv: 'CV',
-    contact: 'Get in touch',
+    contact: 'Message me',
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },

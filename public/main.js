@@ -114,6 +114,16 @@ window.__initSite = () => {
     });
   });
 
+  // Соцсети в контактах: после клика стрелка ↗ на 2 секунды становится зелёной
+  document.querySelectorAll('.chip--go').forEach((a) => {
+    let timer = 0;
+    a.addEventListener('click', () => {
+      a.classList.add('is-opened');
+      clearTimeout(timer);
+      timer = setTimeout(() => a.classList.remove('is-opened'), 2000);
+    });
+  });
+
   // WhatsApp: номер хранится в разметке задом наперёд и подставляется в ссылку только в момент клика,
   // чтобы его не было видно при наведении и не собирали боты
   document.querySelectorAll('a[data-wa]').forEach((a) => {
